@@ -1,0 +1,32 @@
+﻿#type {
+    position: relative;
+    font-family: Arial;
+    font-size: medium;
+    border: 2px solid transparent;
+}
+
+#label {
+    font-family: Arial;
+    background-color: darkcyan;
+    font-size: medium;
+}
+
+
+.popover-content {
+    min-width: 200px;
+    min-height: 100px;
+}
+
+#form1 {
+    margin-left:0px;
+    margin-top:0px;
+    background-color:darkcyan;
+    color:burlywood;
+}
+#map {
+    width: 100%;
+    height: 700px;
+}
+#header {
+    background-color: darkcyan;
+}
