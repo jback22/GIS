@@ -21,7 +21,8 @@
     margin-left:0px;
     margin-top:0px;
     background-color:darkcyan;
-    color:burlywood;
+    color:black !important;
+    
 }
 #map {
     width: 100%;

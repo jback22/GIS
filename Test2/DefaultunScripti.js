@@ -32,7 +32,8 @@ var vector = new ol.layer.Vector({
 
 var turkiye = ol.proj.fromLonLat([34.8486, 39.1505]); //turkiye lon lat kordinatları
 var map = new ol.Map({//----> map kısmı haritayı çizdirmemizi sağlıyor
-    layers: [aerial, vector],//--> layers haritanın katmanlarını yani aerial= aerial with labels ile çiziyor, vector=çizdiğimiz kapı ve mahalleleri çiziyor.
+    layers: [aerial, vector]
+    ,//--> layers haritanın katmanlarını yani aerial= aerial with labels ile çiziyor, vector=çizdiğimiz kapı ve mahalleleri çiziyor.
     target: 'map',
     view: new ol.View({
         center: turkiye,//-- harita ilk açıldığında nereyi göstereceğini ve zoom seviyesini belirtiyoruz.
@@ -75,10 +76,14 @@ function addInteractions() {
                     animation: true,
                     html: true,
                     draggable: true,
-                    'content': '<h4> Kayıt ekranına hoşgeldiniz! </h4> <form name="form" action="index.asp" method="post">' +
-                        '<p><b>Kapı Adı Giriniz: <input type="text" size="20"></p> <p><b>Kapı No Giriniz: </b>' +
-                        ' <input type="text" size="20"></p> <p><button type="button"> KAYDET </button>' +
-                        '&emsp;&emsp;&emsp;&emsp;&emsp;<button type="button" onclick="popup.setPosition(undefined);">IPTAL</button></p></form>'
+                    'content': '<h4> Kayıt ekranına hoşgeldiniz! </h4>' +
+                        ' <form name="form" action="index.asp" method="post">' +
+                        ' <p><b>Kapı Adı Giriniz: <input type="text" size="20"></p>' +
+                        ' <p><b>Kapı No Giriniz: </b><input type="text" size="20"></p>' +
+                        ' <p><button type="button"> KAYDET </button>' +
+                        '    <button type="button" onclick="popup.setPosition(undefined);">IPTAL</button>' +
+                        ' </p>' +
+                        ' </form>'
                 });
                 $(element).popover('show');
                 //jquery ile popup ı buraya oluşturcaz
@@ -95,20 +100,64 @@ function addInteractions() {
 
                 $(element).popover({
                     placement: top,
-                    animation: false,
+                    animation: true,
                     html: true,
-                    'content': '<h4> Kayıt sayfasına hoşgeldiniz! </h4> <form name="form" action="index.asp" method="post">' +
-                        '<p><b>Mahalle Adı Giriniz: <input id="txtMahalleAdi" type="text" size="20"></p>' +
-                        ' <p><b>Mahalle Id giriniz: <input id="txtMahalleNo" type="text" size="20"></p> <p><button id="btnSaave" type="button"> KAYDET </button>' +
-                        '&emsp;&emsp;&emsp;&emsp;&emsp;<button type="button" ' +
-                        ' onclick="popup.setPosition(undefined);">IPTAL</button></p></form>'
+                    'content': '<h4> Kayıt sayfasına hoşgeldiniz! </h4>' +
+                        ' <form name="form" action="index.asp" method="post">' +
+                        ' <p><b>Mahalle Adı Giriniz: <input id="txtMahalleAdi" type="text" size="20"></p>' +
+                        ' <p><b>Mahalle Id giriniz: <input id="txtMahalleNo" type="text" size="20"></p>' +
+                        ' <p><button id="btnSave" type="button""> KAYDET </button>' +
+                        '    <button type="button" onclick="popup.setPosition(undefined);">IPTAL</button>' +
+                        ' </p>' +
+                        ' </form>'
+                   
+
+
 
                 });
+
                 $(element).popover('show');
 
                 console.log(myWKTCoordinates);
+                
             }
+            var kaydet1 = document.getElementById("btnSave");
+            kaydet1.addEventListener("click", function () {
+                mahalleAdi = document.getElementById("txtMahalleAdi").value;
+                mahalleNo = document.getElementById("txtMahalleNo").value;
+                console.log(mahalleAdi);
+                console.log(mahalleNo);
+                $(document).ready(function () {
+                    /*$('#btnSave').click(function () {
+                        alert("asas");
+                        mahalleAdi = $('#<%=txtMahalleAdi.ClientID %>').val();
+                        mahalleNo = $('#<%=txtMahalleNo.ClientID %>').val();
 
+                    });*/
+                    // burada jquery ajax kullanarak call server side function yapıyoruz.
+                    $.ajax({
+                        url: "Default.aspx/",
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({
+                            "mahalleAdi": mahalleAdi,
+                            "mahalleNo": mahalleNo
+                        }),
+                        success: function (data) {
+                            alert("data saved");
+
+                        },  
+
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(thrownError);
+                        }
+                    }).done(function () {
+                        alert("Başarılı gardaş!!");
+                    });
+                }); 
+            })
+            
         });//drawend sonu...
 
         map.addInteraction(draw);
@@ -176,29 +225,5 @@ yazdırBtn.onclick = function () {
     yazdirDiv.innerHTML = '<p>Koordinatlar: <code>' + myWKTCoordinates + '</code></p>'
     console.log(yazdirDiv);
 };
-var mahalleAdi,mahalleNo;
-/*
-    $(document).ready(function () {
-    $('#btnSave').click(function () {
-        mahalleAdi = $('#<%=txtMahalleAdi.ClientID %>').val();
-        mahalleNo = $('#<%=txtMahalleNo.ClientID %>').val();
+var mahalleAdi, mahalleNo;
 
-    });
-    // burada jquery ajax kullanarak call server side function yapıyoruz.
-    $.ajax({
-        url: "Default.aspx/",
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({
-            "mahalleAdi": mahalleAdi,
-            "mahalleNo": mahalleNo
-        }),
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert(thrownError);
-        }
-    }).done(function () {
-        alert("Başarılı gardaş!!");
-    });
-});
- */

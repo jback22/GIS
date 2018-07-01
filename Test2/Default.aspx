@@ -13,7 +13,7 @@
       <link rel="stylesheet" href="styles.css">
   </head>
   <body>        
-   <div id="header">
+   <div id="header"><h4>“Hep denedin. Hep yenildin. Olsun. Yine dene. Yine yenil. Daha iyi yenil.” Samuel Beckett</h4>
         <form id="form1"  >
               <label id="label">Çizim Türü &nbsp;</label>
               <select id="type">
@@ -26,6 +26,7 @@
                     <input type="button" value="YAZDIR" id="yazdırBtn" />
                     <div id="popup" title="Kayıt Sayfası"></div>
         </form>
+
    </div>
       <div  id="map" class="map"></div>
     <!-- Popup -->
