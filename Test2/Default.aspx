@@ -26,11 +26,13 @@
                     <input type="button" value="YAZDIR" id="yazdırBtn" />
                     <div id="popup" title="Kayıt Sayfası"></div>
         </form>
+       
 
    </div>
       <div  id="map" class="map"></div>
     <!-- Popup -->
     
+  <%-- ReSharper disable once ScriptTagHasBothSrcAndContentAttributes --%>
     <script src="DefaultunScripti.js"> //---------------------------------------------------SCRİPT--------------------SCRİPT-----------------------------
         
     </script>

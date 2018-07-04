@@ -8,26 +8,26 @@ var aerial = new ol.layer.Tile({//---> aerialwithlabels ı tanımladım
     })
 });
 
-//var feature = format.readFeature(myWKTCoordinates, { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' });
+//var feature = format.readFeature(selFeatureWkt, { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' });
 var source = new ol.source.Vector();
 var vector = new ol.layer.Vector({
-    source: source,
+    source: source
 
-    style: new ol.style.Style({
-        fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.2)'
-        }),
-    }),
-    stroke: new ol.style.Stroke({
-        color: '#ffcc33',
-        width: 2
-    }),
-    image: new ol.style.Circle({
-        radius: 7,
-        fill: new ol.style.Fill({
-            color: '#ffcc33'
-        })
-    })
+    //style: new ol.style.Style({
+    //    fill: new ol.style.Fill({
+    //        color: 'rgba(255, 255, 255, 0.2)'
+    //    }),
+    //}),
+    //stroke: new ol.style.Stroke({
+    //    color: '#ffcc33',
+    //    width: 2
+    //}),
+    //image: new ol.style.Circle({
+    //    radius: 7,
+    //    fill: new ol.style.Fill({
+    //        color: '#ffcc33'
+    //    })
+    //})
 });
 
 var turkiye = ol.proj.fromLonLat([34.8486, 39.1505]); //turkiye lon lat kordinatları
@@ -45,11 +45,13 @@ var modify = new ol.interaction.Modify({ source: source });//
 map.addInteraction(modify);
 var draw, snap; // global so we can remove them later
 var typeSelect = document.getElementById('type');
-var myWKTCoordinates;
+var selFeatureWkt;
 var coordinatesFromFeature;
 var format = new ol.format.WKT();
+
 function addInteractions() {
     var value = typeSelect.value;
+
 
     if (value !== 'None') {
         draw = new ol.interaction.Draw({
@@ -62,7 +64,11 @@ function addInteractions() {
 
             cizimTuru = $('#type').val();
             coordinatesFromFeature = e.feature.getGeometry().getCoordinates();
-            myWKTCoordinates = format.writeGeometry(e.feature.getGeometry());
+            var format = new ol.format.WKT();
+            var selFeatureWkt = format.writeGeometry(e.feature.getGeometry(), {
+                dataProjection: 'EPSG:4326',
+                featureProjection: 'EPSG:3857'
+            });
 
 
             if (cizimTuru == 'Point') {
@@ -104,8 +110,7 @@ function addInteractions() {
                     html: true,
                     'content': '<h4> Kayıt sayfasına hoşgeldiniz! </h4>' +
                         ' <form name="form" action="index.asp" method="post">' +
-                        ' <p><b>Mahalle Adı Giriniz: <input id="txtMahalleAdi" type="text" size="20"></p>' +
-                        ' <p><b>Mahalle Id giriniz: <input id="txtMahalleNo" type="text" size="20"></p>' +
+                        ' <p><b>Mahalle Adı Giriniz: <input id="txtMahalleAdi" type="text" size="20"></p>' +                       
                         ' <p><button id="btnSave" type="button""> KAYDET </button>' +
                         '    <button type="button" onclick="popup.setPosition(undefined);">IPTAL</button>' +
                         ' </p>' +
@@ -118,47 +123,62 @@ function addInteractions() {
 
                 $(element).popover('show');
 
-                console.log(myWKTCoordinates);
+                console.log(selFeatureWkt);
                 
             }
-            var kaydet1 = document.getElementById("btnSave");
-            kaydet1.addEventListener("click", function () {
-                mahalleAdi = document.getElementById("txtMahalleAdi").value;
-                mahalleNo = document.getElementById("txtMahalleNo").value;
-                console.log(mahalleAdi);
-                console.log(mahalleNo);
-                $(document).ready(function () {
-                    /*$('#btnSave').click(function () {
-                        alert("asas");
-                        mahalleAdi = $('#<%=txtMahalleAdi.ClientID %>').val();
-                        mahalleNo = $('#<%=txtMahalleNo.ClientID %>').val();
-
-                    });*/
-                    // burada jquery ajax kullanarak call server side function yapıyoruz.
-                    $.ajax({
-                        url: "Default.aspx/",
-                        type: "POST",
-                        dataType: "json",
-                        contentType: "application/json;charset=utf-8",
-                        data: JSON.stringify({
-                            "mahalleAdi": mahalleAdi,
-                            "mahalleNo": mahalleNo
-                        }),
-                        success: function (data) {
-                            alert("data saved");
-
-                        },  
-
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            alert(thrownError);
-                        }
-                    }).done(function () {
-                        alert("Başarılı gardaş!!");
-                    });
-                }); 
-            })
+            //var kaydet1 = document.getElementById("btnSave");
+            //kaydet1.addEventListener("click", function () {
+            //    mahalleAdi = document.getElementById("txtMahalleAdi").value;
+            //    mahalleNo = document.getElementById("txtMahalleNo").value;
+            //    console.log(mahalleAdi);
+            //    console.log(mahalleNo);
+                
+            //})
+            //--------------Sonradan alınan-------------
+            
+            var mahalleNamesi = 'mahalle1';
+            var url = "/VeriIslemleri.ashx?f=mahalleekle&mahalleAdi=ABC&WKT=" + selFeatureWkt;
+            $.ajax({
+                url: url, success: function (result) {
+                    alert(result);
+                }
+            });
+            alert(selFeatureWkt);
             
         });//drawend sonu...
+        //---sonradan alınanların başı
+        var url = "/VeriIslemleri.ashx?f=mahalleleriGetir";
+        var mahalleDizi = [];
+        var vectorMahalle = null;
+        var omerData = null;
+        $.ajax({
+            url: url,
+            success: function (result) {
+                var sonuc = JSON.parse(result);
+                omerData = sonuc;
+                var format = new ol.format.WKT();
+
+                var denemeFeature = null;
+                for (var i = 0; i < sonuc.length; i++) {
+                    var feature = format.readFeature(sonuc[i].WKT, {
+                        dataProjection: 'EPSG:4326',
+                        featureProjection: 'EPSG:3857'
+                    });
+                    feature.set('MahalleAdi', sonuc[i].MahalleAdi);
+                    feature.set('MahalleId', sonuc[i].Id);
+                    mahalleDizi.push(feature);
+                    denemeFeature = feature;
+                }
+                vectorMahalle = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: mahalleDizi
+                    })
+                });
+                map.addLayer(vectorMahalle);
+            }
+        });
+
+        //---Sonradan alınanlar sonu
 
         map.addInteraction(draw);
         snap = new ol.interaction.Snap({ source: source });
@@ -222,7 +242,7 @@ iptalBtn.onclick = function () {
 };
 yazdırBtn.onclick = function () {
     var yazdirDiv = document.getElementById('yazdirDiv');
-    yazdirDiv.innerHTML = '<p>Koordinatlar: <code>' + myWKTCoordinates + '</code></p>'
+    yazdirDiv.innerHTML = '<p>Koordinatlar: <code>' + selFeatureWkt + '</code></p>'
     console.log(yazdirDiv);
 };
 var mahalleAdi, mahalleNo;
