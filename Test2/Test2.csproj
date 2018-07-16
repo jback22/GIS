@@ -172,9 +172,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MyModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="JsPanelSearch.html" />
+    <Content Include="JsPanelZoom.js" />
     <Content Include="MyModel.edmx.diagram">
       <DependentUpon>MyModel.edmx</DependentUpon>
     </Content>
+    <Content Include="JsPanelZoom.ashx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="MyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -247,6 +250,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="JsPanelZoom.ashx.cs">
+      <DependentUpon>JsPanelZoom.ashx</DependentUpon>
     </Compile>
     <Compile Include="MahalleInfo.cs">
       <DependentUpon>MyModel.tt</DependentUpon>

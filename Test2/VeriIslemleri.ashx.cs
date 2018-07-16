@@ -21,9 +21,11 @@ namespace Test2
 
 			var function = context.Request.QueryString["f"];
 			string mahalleAdi = "";
+			string kapiAdi = "";
 			string wkt = "";
+			string mahalleAdi2 = "";
 			string responce = "";
-			responce = function + "#";
+			responce = function + "me-->";
 			switch (function)
 			{
 				case "mahalleekle":
@@ -31,6 +33,19 @@ namespace Test2
 					wkt = context.Request.QueryString["WKT"];
 					cmd.CommandText = "insert into Mahalle(Mahalleadi,WKT)Values('" + mahalleAdi + "','" + wkt + "')";
 					int sonuc = cmd.ExecuteNonQuery();
+					if (sonuc > 0)
+						responce += "BASARILI";
+					else
+						responce += "HATALI";
+					cmd.Dispose();
+					conn.Close();
+					break;
+				case "kapiekle":
+					kapiAdi = context.Request.QueryString["kapiAdi"];
+					wkt = context.Request.QueryString["WKT"];
+					mahalleAdi2= context.Request.QueryString["mahalleAdi2"];
+					cmd.CommandText = "insert into Kapi(Kapiadi,WKT,MahalleAdi)Values('" + kapiAdi + "','" + wkt + "','" + mahalleAdi2 + "')";
+					 sonuc = cmd.ExecuteNonQuery();
 					if (sonuc > 0)
 						responce += "BASARILI";
 					else
@@ -47,6 +62,28 @@ namespace Test2
 					cmd.Dispose();
 					conn.Close();
 					responce = Newtonsoft.Json.JsonConvert.SerializeObject(dt);
+					break;
+				
+				case "kapilariGetir":
+					cmd.CommandText = "Select * from Kapi";
+					SqlDataAdapter adp1 = new SqlDataAdapter(cmd);
+					DataTable dt1 = new DataTable("KAPILAR");
+					adp1.Fill(dt1);
+					adp1.Dispose();
+					cmd.Dispose();
+					conn.Close();
+					responce = Newtonsoft.Json.JsonConvert.SerializeObject(dt1);
+					break;
+
+				case "searchGetir":
+					cmd.CommandText = "Select KapiAdi,MahalleAdi,WKT from Kapi ";
+					SqlDataAdapter adp2 = new SqlDataAdapter(cmd);
+					DataTable dt2 = new DataTable("SEARCH");
+					adp2.Fill(dt2);
+					adp2.Dispose();
+					cmd.Dispose();
+					conn.Close();
+					responce = Newtonsoft.Json.JsonConvert.SerializeObject(dt2);
 					break;
 				default:
 					break;

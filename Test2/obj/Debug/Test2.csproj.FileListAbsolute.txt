@@ -90,6 +90,12 @@ C:\Users\Alparslan Yiğit\source\repos\Test2\Test2\bin\EntityFramework.dll
 C:\Users\Alparslan Yiğit\source\repos\Test2\Test2\bin\EntityFramework.SqlServer.dll
 C:\Users\Alparslan Yiğit\source\repos\Test2\Test2\bin\EntityFramework.xml
 C:\Users\Alparslan Yiğit\source\repos\Test2\Test2\bin\EntityFramework.SqlServer.xml
+C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.IO.Compression.dll
+C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\VBCSCompiler.exe
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\ApplicationInsights.config
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Test2.dll.config
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Test2.dll
@@ -101,13 +107,9 @@ C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\csi.exe
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\csi.exe.config
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\csi.rsp
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -117,7 +119,6 @@ C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.Console.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.Diagnostics.Process.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.IO.Compression.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.IO.FileSystem.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -140,7 +141,6 @@ C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\System.Xml.XPath.XDocumen
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\vbc.exe
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\vbc.exe.config
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\vbc.rsp
-C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\VBCSCompiler.exe
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Antlr3.Runtime.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\AspNet.ScriptManager.bootstrap.dll
@@ -177,8 +177,8 @@ C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Microsoft.AI.DependencyCollector
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Microsoft.AI.Web.xml
 C:\Users\safa\Desktop\VsProject\Test2\Test2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\safa\Desktop\VsProject\Test2\Test2\obj\Debug\Test2.csprojAssemblyReference.cache
 C:\Users\safa\Desktop\VsProject\Test2\Test2\obj\Debug\Test2.csproj.CoreCompileInputs.cache
 C:\Users\safa\Desktop\VsProject\Test2\Test2\obj\Debug\Test2.csproj.CopyComplete
 C:\Users\safa\Desktop\VsProject\Test2\Test2\obj\Debug\Test2.dll
 C:\Users\safa\Desktop\VsProject\Test2\Test2\obj\Debug\Test2.pdb
+C:\Users\safa\Desktop\VsProject\Test2\Test2\obj\Debug\Test2.csprojAssemblyReference.cache
