@@ -15,48 +15,48 @@ namespace Test2
 
 		public void ProcessRequest(HttpContext context)
 		{
-			SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Harita;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+			SqlConnection conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Map;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 			conn.Open();
 			SqlCommand cmd = conn.CreateCommand();
 
 			var function = context.Request.QueryString["f"];
-			string mahalleAdi = "";
-			string kapiAdi = "";
+			string districtName = "";
+			string doorName = "";
 			string wkt = "";
-			string mahalleAdi2 = "";
+			string districtName2 = "";
 			string responce = "";
-			responce = function + "me-->";
+			responce = function + "-->";
 			switch (function)
 			{
-				case "mahalleekle":
-					mahalleAdi = context.Request.QueryString["mahalleAdi"];
+				case "adddistrict":
+					districtName = context.Request.QueryString["districtName"];
 					wkt = context.Request.QueryString["WKT"];
-					cmd.CommandText = "insert into Mahalle(Mahalleadi,WKT)Values('" + mahalleAdi + "','" + wkt + "')";
-					int sonuc = cmd.ExecuteNonQuery();
-					if (sonuc > 0)
-						responce += "BASARILI";
+					cmd.CommandText = "insert into District(DistrictName,WKT)Values('" + districtName + "','" + wkt + "')";
+					int result = cmd.ExecuteNonQuery();
+					if (result > 0)
+						responce += "Success";
 					else
-						responce += "HATALI";
+						responce += "Error";
 					cmd.Dispose();
 					conn.Close();
 					break;
-				case "kapiekle":
-					kapiAdi = context.Request.QueryString["kapiAdi"];
+				case "adddoor":
+					doorName = context.Request.QueryString["doorName"];
 					wkt = context.Request.QueryString["WKT"];
-					mahalleAdi2= context.Request.QueryString["mahalleAdi2"];
-					cmd.CommandText = "insert into Kapi(Kapiadi,WKT,MahalleAdi)Values('" + kapiAdi + "','" + wkt + "','" + mahalleAdi2 + "')";
-					 sonuc = cmd.ExecuteNonQuery();
-					if (sonuc > 0)
-						responce += "BASARILI";
+					districtName2= context.Request.QueryString["districtName2"];
+					cmd.CommandText = "insert into Door(DoorName,WKT,DistrictName)Values('" + doorName + "','" + wkt + "','" + districtName2 + "')";
+					 result = cmd.ExecuteNonQuery();
+					if (result > 0)
+						responce += "Success";
 					else
-						responce += "HATALI";
+						responce += "Error";
 					cmd.Dispose();
 					conn.Close();
 					break;
-				case "mahalleleriGetir":
-					cmd.CommandText = "Select * from Mahalle";
-					SqlDataAdapter adp = new SqlDataAdapter(cmd);
-					DataTable dt = new DataTable("MAHALLELER");
+				case "bringDistricts":
+					cmd.CommandText = "Select * from District";
+					SqlDataAdapter adp = new SqlDataAdapter(cmd);	
+					DataTable dt = new DataTable("DISTRICTS");
 					adp.Fill(dt);
 					adp.Dispose();
 					cmd.Dispose();
@@ -64,10 +64,10 @@ namespace Test2
 					responce = Newtonsoft.Json.JsonConvert.SerializeObject(dt);
 					break;
 				
-				case "kapilariGetir":
-					cmd.CommandText = "Select * from Kapi";
+				case "bringDoors":
+					cmd.CommandText = "Select * from Door";
 					SqlDataAdapter adp1 = new SqlDataAdapter(cmd);
-					DataTable dt1 = new DataTable("KAPILAR");
+					DataTable dt1 = new DataTable("DOORS");
 					adp1.Fill(dt1);
 					adp1.Dispose();
 					cmd.Dispose();
@@ -75,8 +75,8 @@ namespace Test2
 					responce = Newtonsoft.Json.JsonConvert.SerializeObject(dt1);
 					break;
 
-				case "searchGetir":
-					cmd.CommandText = "Select KapiAdi,MahalleAdi,WKT from Kapi ";
+				case "searchBring":
+					cmd.CommandText = "Select DoorName,DistrictName,WKT from Door ";
 					SqlDataAdapter adp2 = new SqlDataAdapter(cmd);
 					DataTable dt2 = new DataTable("SEARCH");
 					adp2.Fill(dt2);

@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>BasarSoft Proje</title>
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <%--<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">--%>
+    <link rel="stylesheet" href="https://openlayers.org/en/v5.0.3/css/ol.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -28,17 +29,16 @@
     <div style="margin-top: -10px" id="header">
         <h4>“Hep denedin. Hep yenildin. Olsun. Yine dene. Yine yenil. Daha iyi yenil.” Samuel Beckett</h4>
         <form id="form1">
-            <label id="label">Çizim Türü &nbsp;</label>
+            <label id="label">Drawing Type &nbsp;</label>
             <select id="type">
-                <option value="None">Gezinti</option>
-                <option value="Point">Kapı</option>
-                <option value="Polygon">Mahalle</option>
+                
+                <option value="None">Look Araund</option>
+                <option value="Point">Door</option>
+                <option value="Polygon">District</option>
             </select>
-            <input type="button" value="İptal" id="iptalBtn" class="btn btn-primary" />
-            <input type="button" value="YAZDIR" id="yazdirBtn" class="btn btn-primary" />
-            
-            <input type="button" name="name" value="Arama"class="btn btn-primary" data-toggle="modal" data-target="#myModal" />            
-            <div id="popup" title="Kayıt Sayfası"></div>
+            <input type="button" value="Cancel" id="iptalBtn" class="btn btn-primary" />
+            <input type="button" name="name" value="Search"class="btn btn-primary" data-toggle="modal" data-target="#myModal" />            
+            <div id="popup" title="Register Page"></div>
         </form>
     </div>
     
@@ -65,46 +65,59 @@
       
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Arama Sayfası</h4>
+                    <h4 class="modal-title">Search Page</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
         
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div id="AramaVeZoom">
-                <p>Birşeyler yazarak arama yapabilirsiniz.:</p>
-                <input class="form-control" id="myInput" type="text" placeholder="Arama..">
+                    
+                <p>Type something for search...:</p>
+                <input class="form-control" id="myInput" type="text" placeholder="Search...">
                 <br>
-                <table id="table1" class="table table-bordered table-striped"></table>
+                <div id="SearchAndZoom" class="table-responsive">
+                <table id="table1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th data-field="id">Door Name</th>
+                        <th data-field="name">WKT</th>
+                        <th data-field="price">District</th>
+                        
+                    </tr>
+                    </thead>
+                </table>
                 <script>
-       
+                  
                     function bsTable() {
                         $('#table1').bootstrapTable({
-                            url: "/VeriIslemleri.ashx?f=kapilariGetir",
+                            url: "/VeriIslemleri.ashx?f=bringDoors",
                             columns: [
                                 {
-                                    field: 'KapiAdi',
-                                    title: 'Kapı Adı'
+                                    field: 'DoorName',
+                                    //title: 'Kapı Adı'
                                 },
                                 {
                                     field: 'WKT',
-                                    title: 'Kordinatlar'
+                                    //title: 'Kordinatlar'
                                 },
                                 {
-                                    field: 'MahalleAdi',
-                                    title: 'Mahalle Adı'
+                                    field: 'DistrictName',
+                                    //title: 'Mahalle Adı'
                                 }
+                               
+                                
                             ]
 
                         });
-                    }
-                    kapilarigetirme();
+                    }                 
                     bsTable();
                 </script>
-
+                    
+                
+                </div>
                 <script>
                         
-                    
+                      
         $(document).ready(function () {
             $("#myInput").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
@@ -115,7 +128,7 @@
         });
         $("#table1").on("click-row.bs.table", function (editable, columns, row) {
             console.log("columns:", columns);
-
+         
             var wktString = columns.WKT;
             var coordFinder = /\(\s?(\S+)\s+(\S+)\s?\)/g;
             var allMatches = coordFinder.exec(wktString);
@@ -125,6 +138,7 @@
 
             var coords = ol.proj.fromLonLat([lon, lat]);
             map.getView().animate({ center: coords, zoom: 9 });
+            $(this).parents("tr").remove();
 
 
 
@@ -132,9 +146,9 @@
         });
 
 
-
+                    
         </script>
-            </div>
+            
                 </div>
         
                 <!-- Modal footer -->
@@ -147,11 +161,6 @@
     </div>
   
 </div>
-  
-    
-
-    <div id="yazdirDiv">
-        <p>Koordinatlar</p>
-    </div>
+ 
 </body>
 </html>
